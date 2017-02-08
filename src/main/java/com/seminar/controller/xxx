@@ -1,0 +1,22 @@
+div(attr("class -> container"),
+    div(attr("class -> row"),
+	    div(attr("class -> error-template",
+		    h1("Oops!"),
+		    h2("404 Not Found"),
+		    div(attr("class -> error-details"),
+				text("Sorry, an error has occured, Requested page not found!"),
+				br()
+		    ),
+		    div(attr("class -> error-actions"),
+				a(attr("href -> /", "class -> btn btn-primary",
+				    i(attr("class -> icon-home icon-white")), 
+				    "Take Me Home" 
+			    ),
+				a(attr("href -> mailto:me@null-byte.info", "class -> btn btn-default"),
+				    i(attr("class -> icon-envelope")), 
+				    "Contact Support" 
+			    )
+		    )
+		)
+    )
+)
