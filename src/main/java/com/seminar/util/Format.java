@@ -16,14 +16,13 @@ public class Format {
 		return component(token.toString());
 	}
 	
-	public static boolean match(String route, String url){
-		try {
-			String[] routeComponents = route.split("/");
-			String[] urlComponents = url.split("/");
-			
-			return  routeComponents[1].equals(urlComponents[1]);
-		} catch (ArrayIndexOutOfBoundsException e) {
-			return false;
+	public static boolean match(String route, Iterable<String> registeredRoutes){
+		for (String registered : registeredRoutes) {
+			if(route.matches(registered + "/?")){
+				return true;
+			}
 		}
+		
+		return false;
 	}
 }

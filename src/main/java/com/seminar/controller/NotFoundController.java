@@ -19,6 +19,6 @@ public class NotFoundController implements Controller {
 		context.response().setContentType("text/html;charset=UTF-8");
 		context.response().setStatus(HttpServletResponse.SC_NOT_FOUND);
 		
-		new ResponseWrapper(context.response()).render(new Layout("ops!", new NotFound().build()));
+		new ResponseWrapper(context.response()).render(new Layout("ops!", new NotFound()));
 	}
 }

@@ -12,9 +12,9 @@ public class ResponseWrapper {
 		_response = response;
 	}
 	
-	public void render(View view){
+	public void render(Html view){
 		try {
-			_response.getWriter().write(view.render());
+			_response.getWriter().write(view.build().render());
 			_response.getWriter().flush();
 		} catch (IOException e) {
 			throw new RuntimeException(e);

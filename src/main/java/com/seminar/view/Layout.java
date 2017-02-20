@@ -11,34 +11,33 @@ import static com.github.manliogit.javatags.lang.HtmlHelper.title;
 
 import com.github.manliogit.javatags.element.Element;
 
-public class Layout implements View {
+public class Layout implements Html {
 
 	private final String _title;
-	private final Element _bodyContent;
+	private final Html _bodyContent;
 
-	public Layout(String title, Element bodyContent) {
+	public Layout(String title, Html bodyContent) {
 		_title = title;
 		_bodyContent = bodyContent;
 	}
 
 	@Override
-	public String render() {
+	public Element build() {
 		return 
-				html5(
-					 head(
-						 meta(attr("charset -> utf-8")),
-						 meta(attr("http-equiv -> X-UA-Compatible", "content -> IE=edge")),
-						 meta(attr("name -> viewport", "content -> width=device-width, initial-scale=1")),
-						 title(_title),
-						 link(attr("rel -> stylesheet", "href -> /css/bootstrap.min.css")),
-						 link(attr("rel -> stylesheet", "href -> /css/app.css"))
-					 ),
-					 body(
-						 _bodyContent,
-						 script(attr("src -> /js/jquery.min.js")),
-						 script(attr("src -> /js/bootstrap.min.js"))
-				     )
-				).
-			render();
+			html5(
+				 head(
+					 meta(attr("charset -> utf-8")),
+					 meta(attr("http-equiv -> X-UA-Compatible", "content -> IE=edge")),
+					 meta(attr("name -> viewport", "content -> width=device-width, initial-scale=1")),
+					 title(_title),
+					 link(attr("rel -> stylesheet", "href -> /css/bootstrap.min.css")),
+					 link(attr("rel -> stylesheet", "href -> /css/app.css"))
+				 ),
+				 body(
+					 _bodyContent.build(),
+					 script(attr("src -> /js/jquery.min.js")),
+					 script(attr("src -> /js/bootstrap.min.js"))
+			     )
+			);
 	}
 }

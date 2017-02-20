@@ -8,31 +8,56 @@ import static com.github.manliogit.javatags.lang.HtmlHelper.h1;
 import static com.github.manliogit.javatags.lang.HtmlHelper.input;
 import static com.github.manliogit.javatags.lang.HtmlHelper.label;
 import static com.github.manliogit.javatags.lang.HtmlHelper.textarea;
-import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.github.manliogit.javatags.element.Element;
+import com.seminar.controller.course.Create;
+import com.seminar.controller.course.FeedBack;
 
-public class CourseForm {
+public class CourseForm implements Html{
 
+	private final FeedBack _feedBack;
+
+	private final Map<String, String> _components = new HashMap<String, String>(){{
+		put("name", "text");
+		put("start", "time");
+		put("location", "text");
+		put("number", "text");
+		put("totalSeats", "text");
+		
+	}};
 	
+	public CourseForm() {
+		this(new FeedBack());
+	}
+	
+	public CourseForm(FeedBack feedBack){
+		_feedBack = feedBack;
+	}
+	
+	@Override
 	public Element build() {
 		
-		List<String> components = asList("name", "number",  "location", "totalSeats");
-		
 		List<Element> input = new ArrayList<Element>();
-		for (String component : components) {
+		for (Entry<String, String> pair: _components.entrySet()) {
+			String component = pair.getKey();
+			String type = pair.getValue();
+			
 			input.add(
-				div(attr(" class  -> form-group"),                                                                                                      
-					label(attr("for -> " + component, "class -> col-sm-2 control-label"), capitalize(component)),                                                           
-					div(attr(" class  -> col-sm-10"),                                                                                                   
-						input(attr("type -> text", "class -> form-control", "id -> " + component, "name -> " + component, "placeholder -> " + component))      
-					)                                                                                                                    
-				)
-			);
+					div(attr("class -> form-group").add(_feedBack.state(component)) ,                                                                                                      
+						label(attr("class -> col-sm-2 control-label").add("for", component), capitalize(component)),                                                           
+						div(attr(" class  -> col-sm-10"),                                                                                                   
+							input(attr("type -> " + type, "class -> form-control", "name -> " + component, "aria-describedby -> idHelp" + component).add(_feedBack.placeholder(component)) ),
+							_feedBack.message(component)
+						)                                                                                                                   
+					)
+				);
 		}
 		
 		return 
@@ -40,7 +65,7 @@ public class CourseForm {
 				div(attr(" class  -> row"),                                                                                                                         
 					div(attr("class -> col-md-6 col-md-offset-3"),                                                                                                
 						h1(attr("class  -> page-header text-center"), "Create Course"),                                                                     
-						form(attr("class -> form-horizontal", "role -> form", "method -> post", "action -> /"),                                                       
+						form(attr("class -> form-horizontal", "role -> form", "method -> post", "action -> " + Create.ROUTE),                                                       
 							group(input),
 							div(attr(" class  -> form-group"),                                                                                                      
 								label(attr("for -> description", "class -> col-sm-2 control-label"), "Description"),                                                           

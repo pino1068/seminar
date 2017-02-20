@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>com.github.manliogit</groupId>
 			<artifactId>javatags</artifactId>
-			<version>0.3.1</version>
+			<version>0.4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
