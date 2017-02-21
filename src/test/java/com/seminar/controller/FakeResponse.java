@@ -54,6 +54,10 @@ public class FakeResponse implements HttpServletResponse {
 		_header.put(arg0, arg1);
 	}
 	
+	public String getHeader(String key){
+		return _header.get(key);
+	}
+	
 	@Override
 	public void flushBuffer() throws IOException {
 		// TODO Auto-generated method stub
@@ -194,8 +198,8 @@ public class FakeResponse implements HttpServletResponse {
 
 	@Override
 	public void sendRedirect(String arg0) throws IOException {
-		// TODO Auto-generated method stub
-
+		_status = HttpServletResponse.SC_FOUND;
+		setHeader("Location", arg0);
 	}
 
 	@Override

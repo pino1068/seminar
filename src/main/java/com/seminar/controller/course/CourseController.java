@@ -1,6 +1,6 @@
 package com.seminar.controller.course;
 
-import static com.seminar.util.Format.match;
+import static com.seminar.util.RouteHelper.match;
 import static java.util.Arrays.asList;
 
 import java.util.List;

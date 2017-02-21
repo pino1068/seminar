@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.seminar.model.entity.Course;
+import com.seminar.util.RouteHelper;
 
 public class Context {
 
@@ -40,20 +41,11 @@ public class Context {
 		return _request.getRequestURI();
 	}
 
-	public boolean post(String route) {
-		return matches("POST", route);
-	}
-
-	public boolean get(String route) {
-		return matches("GET", route);
-	}
-	
-	private boolean matches(String method, String route){
-		return _request.getMethod().equals(method) && requestUri().matches(route + "/?");
-	}
-
 	public List<Course> repository() {
 		return _repository;
 	}
-
+	
+	public RouteHelper route(){
+		return new RouteHelper(requestUri(), _request.getMethod());
+	}
 }

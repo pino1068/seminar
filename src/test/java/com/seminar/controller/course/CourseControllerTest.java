@@ -1,4 +1,4 @@
-package com.seminar.controller;
+package com.seminar.controller.course;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertFalse;
@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.seminar.controller.FakeRequest;
+import com.seminar.controller.FakeResponse;
 import com.seminar.controller.course.CourseController;
 import com.seminar.controller.course.Create;
 import com.seminar.route.Context;

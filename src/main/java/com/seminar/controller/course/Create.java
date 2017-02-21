@@ -1,5 +1,7 @@
 package com.seminar.controller.course;
 
+import static com.seminar.util.RouteHelper.*;
+
 import com.seminar.controller.Action;
 import com.seminar.model.entity.Course;
 import com.seminar.model.entity.Time;
@@ -13,11 +15,11 @@ public class Create implements Action {
 	public static final String ROUTE = "/course/create";
 
 	@Override
-	public void execute(final Context context) throws Exception {
+	public void execute(Context context) throws Exception {
 
-		if(context.requestUri().matches(ROUTE + "/?")){
+		if(match(context.requestUri(), ROUTE)){
 			CourseForm courseForm = new CourseForm();
-			if(context.post(ROUTE)){
+			if(context.route().post(ROUTE)){
 				context.repository().add(new Course(context.parameter("name"),
 						context.parameter("description"), 
 						context.parameter("number"), 

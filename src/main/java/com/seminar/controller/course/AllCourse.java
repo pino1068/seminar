@@ -12,7 +12,7 @@ public class AllCourse implements Action {
 	
 	@Override
 	public void execute(Context context) throws Exception {
-		if(context.get(ROUTE)){
+		if(context.route().get(ROUTE)){
 			new ResponseWrapper(context.response()).render(new Layout("courses", new TableCourse(context.repository())));
 		}
 	}

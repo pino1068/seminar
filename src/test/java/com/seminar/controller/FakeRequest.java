@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -18,10 +19,16 @@ public class FakeRequest implements HttpServletRequest {
 
 	private final String _requestUri;
 	private final String _method;
+	private final Map<String, String> _parameters;
 
 	public FakeRequest(String requestUri, String method) {
+		this(requestUri, method, new HashMap<String, String>());
+	}
+	
+	public FakeRequest(String requestUri, String method, Map<String, String> parameters) {
 		_requestUri = requestUri;
 		_method = method;
+		_parameters = parameters;
 	}
 	
 	@Override
@@ -102,14 +109,12 @@ public class FakeRequest implements HttpServletRequest {
 
 	@Override
 	public String getParameter(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return _parameters.get(arg0);
 	}
 
 	@Override
 	public Map getParameterMap() {
-		// TODO Auto-generated method stub
-		return null;
+		return _parameters;
 	}
 
 	@Override
