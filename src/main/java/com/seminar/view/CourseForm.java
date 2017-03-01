@@ -11,7 +11,7 @@ import static com.github.manliogit.javatags.lang.HtmlHelper.textarea;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -23,7 +23,7 @@ public class CourseForm implements Html{
 
 	private final FeedBack _feedBack;
 
-	private final Map<String, String> _components = new HashMap<String, String>(){{
+	private final Map<String, String> _components = new LinkedHashMap<String, String>(){{
 		put("name", "text");
 		put("start", "time");
 		put("location", "text");
