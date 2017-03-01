@@ -15,6 +15,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.Route;
+
 public class FakeRequest implements HttpServletRequest {
 
 	private final String _requestUri;
@@ -29,6 +31,14 @@ public class FakeRequest implements HttpServletRequest {
 		_requestUri = requestUri;
 		_method = method;
 		_parameters = parameters;
+	}
+	
+	public FakeRequest(Route route, String method) {
+		this(route, method, new HashMap<String, String>());
+	}
+	
+	public FakeRequest(Route route, String method, Map<String, String> parameters) {
+		this(route.toString(), method, parameters);
 	}
 	
 	@Override

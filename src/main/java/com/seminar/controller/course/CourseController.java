@@ -1,23 +1,27 @@
 package com.seminar.controller.course;
 
-import static com.seminar.util.RouteHelper.match;
 import static java.util.Arrays.asList;
 
 import java.util.List;
 
-import com.seminar.controller.Action;
+import com.Route;
 import com.seminar.controller.Controller;
 import com.seminar.route.Context;
 
-public class CourseController implements Controller{
+public class CourseController implements Controller {
 
-	private static final Iterable<String> REGISTERED = asList(
+	private static final Iterable<Route> REGISTERED = asList(
 			AllCourse.ROUTE, Create.ROUTE
 		);
 	
 	@Override
 	public boolean handles(String url) {
-		return match(url, REGISTERED);
+		for (Route registered : REGISTERED) {
+			if(url.matches(registered.regEx())){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -25,9 +29,11 @@ public class CourseController implements Controller{
 
 		context.response().setContentType("text/html;charset=UTF-8");
 
-		List<Action> actions = asList(new AllCourse(), new Create());
-		for (Action action : actions) {
-			action.execute(context);
+		List<Controller> actions = asList(new AllCourse(), new Create());
+		for (Controller action : actions) {
+			if(action.handles(context.requestUri())){
+				action.execute(context);
+			}
 		}
 	}
 }

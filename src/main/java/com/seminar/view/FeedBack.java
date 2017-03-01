@@ -1,4 +1,4 @@
-package com.seminar.controller.course;
+package com.seminar.view;
 
 import static com.github.manliogit.javatags.lang.HtmlHelper.attr;
 import static com.github.manliogit.javatags.lang.HtmlHelper.group;
@@ -42,7 +42,9 @@ public class FeedBack {
 	
 	public Attribute placeholder(String component) {
 		if(_map.containsKey(component)){
-			return attr().add("value", _map.get(component).placeHolder());
+			return attr().
+					add("value", _map.get(component).placeHolder()).
+					add("aria-describedby", "idHelp" + component);
 		}
 		return attr();
 	}

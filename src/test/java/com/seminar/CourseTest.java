@@ -22,7 +22,6 @@ public class CourseTest {
 	
 	@Test
 	public void enrollingAStudentDecreaseSeatsLeft() {
-		
 		_course.enroll(new Student("a", "b"));
 		
 		assertThat(_course.getSeatsLeft(), is(0));
@@ -44,5 +43,4 @@ public class CourseTest {
 	public void courseHasStartDate() throws Exception {
 		assertThat(_course.getTime(), is(new Time("20.09.2016")));
 	}
-	
 }

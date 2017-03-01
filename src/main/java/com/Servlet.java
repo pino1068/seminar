@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.seminar.controller.Controller;
-import com.seminar.controller.NotFoundController;
 import com.seminar.controller.course.CourseController;
 import com.seminar.model.entity.Course;
 import com.seminar.route.Context;
@@ -26,7 +25,6 @@ public class Servlet extends HttpServlet {
 
 	private List<Course> _repository;
 	
-	
 	@Override
 	public void init() throws ServletException {
 		_repository = new ArrayList<Course>();
@@ -35,25 +33,23 @@ public class Servlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		List<Controller> controllers = asList( new CourseController() , new NotFoundController());
-		for (Controller controller : controllers) {
+		for (Controller controller :  asList( new CourseController())) {
 			if(controller.handles(req.getRequestURI())){
 				try {
 					controller.execute(new Context(req, resp, _repository));
 					return ;
 				} catch (Exception e) {
-					
-					
-					Throwable rootCause = ExceptionUtils.getRootCause(e);
-					String[] rootCauseStackTrace = ExceptionUtils.getRootCauseStackTrace(e);
-					
-					new ResponseWrapper(resp).render(new Layout("error!", new NotFound(rootCauseStackTrace)));
-					
-					throw new RuntimeException(rootCause);
+					new ResponseWrapper(resp).render(new Layout("error!", new NotFound(ExceptionUtils.getRootCauseStackTrace(e))));
+					throw new RuntimeException(ExceptionUtils.getRootCause(e));
 				} finally {
 					resp.getWriter().flush();
 				}
 			}
 		}
+		
+		resp.setContentType("text/html;charset=UTF-8");
+		resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		
+		new ResponseWrapper(resp).render(new Layout("ops!", new NotFound()));
 	}
 }

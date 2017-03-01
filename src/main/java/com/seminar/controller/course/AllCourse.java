@@ -1,20 +1,23 @@
 package com.seminar.controller.course;
 
-import com.seminar.controller.Action;
+import com.Route;
+import com.seminar.controller.Controller;
 import com.seminar.route.Context;
 import com.seminar.view.Layout;
 import com.seminar.view.ResponseWrapper;
 import com.seminar.view.TableCourse;
 
-public class AllCourse implements Action {
+public class AllCourse implements Controller {
 
-	public final static String ROUTE = "/course";
+	public final static Route ROUTE = new Route("/course/?");
+	
+	@Override
+	public boolean handles(String url) {
+		return url.matches(ROUTE.regEx());
+	}
 	
 	@Override
 	public void execute(Context context) throws Exception {
-		if(context.route().get(ROUTE)){
-			new ResponseWrapper(context.response()).render(new Layout("courses", new TableCourse(context.repository())));
-		}
+		new ResponseWrapper(context.response()).render(new Layout("courses", new TableCourse(context.repository())));
 	}
-
 }

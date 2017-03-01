@@ -15,9 +15,9 @@ public class CourseHtml {
 	public void homePage() throws Exception {
 		WebClient webClient = new WebClient();
 
-		HtmlPage page = webClient.getPage("http://localhost:8080");
+		HtmlPage page = webClient.getPage("http://localhost:8080/course/create");
 
-		assertThat(page.getTitleText(), is("ops!"));
-		assertThat(page.asText(), containsString("Not Found"));
+		assertThat(page.getTitleText(), is("create course"));
+		assertThat(page.asText(), containsString("Description"));
 	}
 }

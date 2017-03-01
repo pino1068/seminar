@@ -1,4 +1,4 @@
-package com.seminar.controller.course;
+package com.seminar.view;
 
 public class Component {
 
@@ -44,7 +44,7 @@ public class Component {
 		return _type._icon;
 	}
 	
-	enum TYPE{
+	public enum TYPE{
 		SUCCESS("(success)", "has-success", "glyphicon-ok"),
 		WARNING("(warning)", "has-warning", "glyphicon-warning-sign"),
 		ERROR("(error)", "has-error", "glyphicon-remove");
