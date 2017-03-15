@@ -2,11 +2,11 @@ package com.seminar.route;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.Route;
 import com.seminar.model.entity.Course;
 
 public class Context {
@@ -45,15 +45,19 @@ public class Context {
 		return _repository;
 	}
 	
-	public boolean post(Route route) {
-		return matches("POST", route);
+	public boolean post() {
+		return matches("POST");
 	}
 
-	public boolean get(Route route) {
-		return matches("GET", route);
+	public boolean get() {
+		return matches("GET");
 	}
 	
-	private boolean matches(String method, Route route){
-		return _request.getMethod().equals(method) && requestUri().matches(route.regEx());
+	public Map<String, String> requestMap(){
+		return _request.getParameterMap();
+	}
+	
+	private boolean matches(String method){
+		return _request.getMethod().equals(method);
 	}
 }

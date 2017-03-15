@@ -36,9 +36,13 @@ public class Servlet extends HttpServlet {
 		for (Controller controller :  asList( new CourseController())) {
 			if(controller.handles(req.getRequestURI())){
 				try {
+					resp.setStatus(HttpServletResponse.SC_OK);
 					controller.execute(new Context(req, resp, _repository));
 					return ;
 				} catch (Exception e) {
+					resp.setContentType("text/html;charset=UTF-8");
+					resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					
 					new ResponseWrapper(resp).render(new Layout("error!", new NotFound(ExceptionUtils.getRootCauseStackTrace(e))));
 					throw new RuntimeException(ExceptionUtils.getRootCause(e));
 				} finally {

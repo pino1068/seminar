@@ -1,4 +1,4 @@
-package com.seminar;
+package com.seminar.model.entity;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

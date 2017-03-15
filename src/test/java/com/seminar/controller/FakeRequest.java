@@ -41,6 +41,10 @@ public class FakeRequest implements HttpServletRequest {
 		this(route.toString(), method, parameters);
 	}
 	
+	public FakeRequest(Map<String, String> parameters) {
+		this("/xxx", "GET", parameters);
+	}
+	
 	@Override
 	public String getRequestURI() {
 		return _requestUri;

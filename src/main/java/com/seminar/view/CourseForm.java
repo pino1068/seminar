@@ -8,13 +8,11 @@ import static com.github.manliogit.javatags.lang.HtmlHelper.h1;
 import static com.github.manliogit.javatags.lang.HtmlHelper.input;
 import static com.github.manliogit.javatags.lang.HtmlHelper.label;
 import static com.github.manliogit.javatags.lang.HtmlHelper.textarea;
+import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import com.github.manliogit.javatags.element.Element;
 import com.seminar.controller.course.Create;
@@ -22,14 +20,7 @@ import com.seminar.controller.course.Create;
 public class CourseForm implements Html{
 
 	private final FeedBack _feedBack;
-
-	private final Map<String, String> _components = new LinkedHashMap<String, String>(){{
-		put("name", "text");
-		put("start", "time");
-		put("location", "text");
-		put("number", "text");
-		put("totalSeats", "text");
-	}};
+	private final List<String> _components = asList("name", "start" , "location", "number", "totalSeats");
 	
 	public CourseForm() {
 		this(new FeedBack());
@@ -43,17 +34,13 @@ public class CourseForm implements Html{
 	public Element build() {
 		
 		List<Element> input = new ArrayList<Element>();
-		for (Entry<String, String> pair: _components.entrySet()) {
-			String component = pair.getKey();
-			String type = pair.getValue();
-			
+		for (String component: _components) {
 			input.add(
 					div(attr("class -> form-group").add(_feedBack.state(component)) ,                                                                                                      
 						label(attr("class -> col-sm-2 control-label").add("for", component), capitalize(component)),                                                           
 						div(attr(" class  -> col-sm-10"),                                                                                                   
-							input(attr("class -> form-control").
+							input(attr("class -> form-control", "type -> text").
 									add(_feedBack.placeholder(component)).
-									add("type", type).
 									add("name", component).
 									add("id", component) 
 								),

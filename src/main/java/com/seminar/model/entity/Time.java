@@ -8,14 +8,27 @@ import java.util.Date;
 public class Time  {
 
 	private static final String FORMAT = "dd.MM.yyyy";
+	public static final String REG_EX = "[0-3][0-9].[0-1][0-9].[1-2][0-9][0-9][0-9]";
 	private final Date _time;
 	
 	public Time(String time) {
+		this(init(time));
+	}
+	
+	private static Date init(String time) {
 		try {
-			_time = new SimpleDateFormat(FORMAT).parse(time);
+			return new SimpleDateFormat(FORMAT).parse(time);
 		} catch (ParseException e) {
-			throw new RuntimeException(e);
+			return new Date();
 		}
+	}
+
+	public Time(){
+		this(new Date());
+	}
+	
+	private Time(Date time) {
+		_time = time;
 	}
 
 	@Override

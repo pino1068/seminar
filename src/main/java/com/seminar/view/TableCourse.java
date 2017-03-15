@@ -59,8 +59,8 @@ public class TableCourse implements Html{
 				th(attr("scope -> row"),text(course.getName())),
 				td(text(course.getNumber())),
 				td(text(course.getLocation())),
-				td(text(course.getTime().toString())),
-				td(text(course.getLocation()))
+				td(text(course.getTotalSeats().toString())),
+				td(text(course.getTime().toString()))
 			);
 	}	
 	

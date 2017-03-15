@@ -1,6 +1,6 @@
 package com.seminar.model.entity;
 
-public class Student {
+public class Student implements Entity {
 
 	private final String _firstName;
 	private final String _lastName;
