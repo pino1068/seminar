@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.Route;
 import com.seminar.controller.Controller;
+import com.seminar.model.EntityModel;
 import com.seminar.model.entity.Course;
 import com.seminar.route.Context;
 import com.seminar.view.Component;
@@ -29,21 +30,15 @@ public class Create implements Controller {
 	public void execute(final Context context) throws Exception {
 			CourseForm courseForm = new CourseForm();
 			if(context.post()){
-				Course course = new Course(context.parameter("name"),
-						context.parameter("description"), 
-						context.parameter("number"), 
-						context.parameter("location"), 
-						context.parameter("totalSeats"), 
-						context.parameter("start")
-				);
-				
-				if(course.isValid()){
-					context.repository().add(course);
+
+				EntityModel entity = new EntityModel(Course.rules(), context.requestMap());
+				if(entity.isValid()){
+					context.repository().add(entity.<Course>create(Course.class));
 					context.response().sendRedirect(AllCourse.ROUTE.toString());
 				} else {
 					Map<String, Component> errors = new HashMap<String, Component>();
-					for (String component : signatureOf(course)) {
-						errors.put(component, componentType(component, course, context));
+					for (String component : signatureOf(Course.class)) {
+						errors.put(component, componentType(component, entity, context));
 					} 
 					
 					courseForm = new CourseForm(new FeedBack(errors));
@@ -54,7 +49,7 @@ public class Create implements Controller {
 			new ResponseWrapper(context.response()).render(layout);
 	}
 	
-	private Component componentType(String label, Course course, Context context){
+	private Component componentType(String label, EntityModel course, Context context){
 		return course.isBrokenOn(label) 
 				? new Component(TYPE.ERROR, "Provide a valid " + label + "!", context.parameter(label))
 				:  new Component(TYPE.SUCCESS, "", context.parameter(label));

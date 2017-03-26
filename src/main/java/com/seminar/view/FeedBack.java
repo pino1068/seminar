@@ -26,6 +26,7 @@ public class FeedBack {
 		if(_map.containsKey(component)){
 			return group(
 				span(attr("id -> idHelp"+component, "class -> help-block"), _map.get(component).message()),
+				span(attr("id -> idHelp"+component, "class -> help-block"), _map.get(component).message()),
 				span(attr("class -> glyphicon form-control-feedback", "aria-hidden ->true").add("class", _map.get(component).icon())),
 				span(attr("id -> idHelp"+component, "class -> sr-only"),_map.get(component).value())
 			);

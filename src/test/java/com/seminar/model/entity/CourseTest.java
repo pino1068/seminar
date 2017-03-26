@@ -4,8 +4,12 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import com.seminar.model.EntityModel;
 
 public class CourseTest {
 
@@ -13,7 +17,7 @@ public class CourseTest {
 
 	@Before
 	public void setUp(){
-		_course = new Course("name", "description", "1", "somewhere", "1", "20.09.2016");
+		_course = new Course("name", "description", 1, "somewhere", 1, new Time("20.09.2016"));
 	}
 	
 	@Test
@@ -42,7 +46,8 @@ public class CourseTest {
 	
 	@Test
 	public void courseNameStartLocationTotalSeatsAreMandatory() throws Exception {
-		Course invalidCourse = new Course("", "desc", "2", "", "", "");
+		
+		EntityModel invalidCourse = new EntityModel(Course.rules(), new HashMap<String, String>());
 		
 		assertThat(invalidCourse.isValid(), is(false));
 		assertThat(invalidCourse.isBrokenOn("name"), is(true));
@@ -51,33 +56,18 @@ public class CourseTest {
 		assertThat(invalidCourse.isBrokenOn("totalSeats"), is(true));
 		assertThat(invalidCourse.isBrokenOn("description"), is(false));
 		assertThat(invalidCourse.isBrokenOn("number"), is(false));
-		assertThat(_course.isValid(), is(true));
 	}
 	
 	@Test
-	public void numberIsZeroWhenNotDefined() throws Exception {
-		Course course = new Course("name", "description", "", "somewhere", "1", "20.09.2016");
+	public void validCourse() throws Exception {
+		HashMap<String, String> params = new HashMap<String, String>(){{
+			put("name", "course");
+			put("start", "26.03.2017");
+			put("location", "somewhere");
+			put("totalSeats", "15");
+		}};
+		EntityModel validCourse = new EntityModel(Course.rules(), params);
 		
-		assertThat(course.isValid(), is(true));
-		assertThat(course.getNumber(), is("0"));
-	}
-	
-	@Test
-	public void numberMustBeBelowTotalSeats() throws Exception {
-		Course course = new Course("name", "description", "5", "somewhere", "1", "20.09.2016");
-		
-		assertThat(course.isValid(), is(false));
-		assertThat(course.isBrokenOn("number"), is(true));
-	}
-	
-	@Test
-	public void timeHasExpectedFormat() throws Exception {
-		Course course = new Course("name", "description", "0", "somewhere", "1", "90.19.2016");
-		Course otherCourse = new Course("name", "description", "0", "somewhere", "1", "90/19/whatever");
-		
-		assertThat(course.isValid(), is(false));
-		assertThat(otherCourse.isValid(), is(false));
-		assertThat(course.isBrokenOn("start"), is(true));
-		assertThat(otherCourse.isBrokenOn("start"), is(true));
+		assertThat(validCourse.isValid(), is(true));
 	}
 }

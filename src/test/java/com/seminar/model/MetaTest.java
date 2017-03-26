@@ -31,7 +31,7 @@ public class MetaTest {
 		
 		Iterable<String> expected = asList("a", "b", "c", "d");
 		
-		assertThat(Meta.signatureOf(xxx), is(expected));
+		assertThat(Meta.signatureOf(xxx.getClass()), is(expected));
 	}
 	
 	@Test
@@ -46,6 +46,6 @@ public class MetaTest {
 		
 		Iterable<String> expected = asList("a", "b", "c");
 		
-		assertThat(Meta.signatureOf(new Something()), is(expected));
+		assertThat(Meta.signatureOf(Something.class), is(expected));
 	}
 }

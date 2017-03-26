@@ -1,39 +1,41 @@
 package com.seminar.model.rule;
 
-import java.util.Set;
-
 import org.apache.commons.lang3.StringUtils;
 
 public class Number implements Rule {
 
-	private final String _what;
 	private final Integer _b;
 	private final OPERATOR _op;
 
+	private String _message;
 	public enum OPERATOR {LESS_THAN, GREATER_THAN}
 	
-	public Number(String what, OPERATOR op,  Integer b) {
-		_what = what;
+	public Number(OPERATOR op,  Integer b) {
 		_op = op;
 		_b = b;
+		_message = "";
+	}
+	@Override
+	public boolean applyOn(String what) {
+		if(!StringUtils.isNumeric(what) || _b.equals(null)){
+			_message = "must be a number";
+			return false;
+		} else {
+			Integer number = new Integer(what);
+			if(_op.equals(OPERATOR.LESS_THAN) && (_b < number)){
+				_message = "must be less than " + _b;
+				return false;
+			}
+			if(_op.equals(OPERATOR.GREATER_THAN) && (number < _b)){
+				_message = "must be greater than " + _b;
+				return false;
+			}
+			return true;
+		}
 	}
 
 	@Override
-	public void validate(Set<String> errors) {
-		if(!StringUtils.isNumeric(_what) || _b.equals(null)){
-			errors.add("must be a number");
-		} else {
-			Integer number = new Integer(_what);
-			String message = "";
-			if(_op.equals(OPERATOR.LESS_THAN) && (_b < number)){
-				message = "must be less than " + _b;
-			}
-			if(_op.equals(OPERATOR.GREATER_THAN) && (number < _b)){
-				message = "must be greater than " + _b;
-			}
-			if(!message.isEmpty()){
-				errors.add(message);
-			}
-		}
+	public String message() {
+		return _message;
 	}
 }

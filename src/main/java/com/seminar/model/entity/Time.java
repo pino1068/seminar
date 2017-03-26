@@ -7,8 +7,7 @@ import java.util.Date;
 
 public class Time  {
 
-	private static final String FORMAT = "dd.MM.yyyy";
-	public static final String REG_EX = "[0-3][0-9].[0-1][0-9].[1-2][0-9][0-9][0-9]";
+	public static final String FORMAT = "dd.MM.yyyy";
 	private final Date _time;
 	
 	public Time(String time) {

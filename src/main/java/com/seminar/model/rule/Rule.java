@@ -1,8 +1,8 @@
 package com.seminar.model.rule;
 
-import java.util.Set;
-
 public interface Rule {
 
-	void validate(Set<String> errors);
+	boolean applyOn(String what);
+	String message();
+//	void validate(String what, MultiValuedMap<String, String> errors);
 }

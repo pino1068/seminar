@@ -16,9 +16,9 @@ public class Meta {
 
 	private static final String PRIVATE_MARKER = "_";
 
-	public static Iterable<String> signatureOf(Entity entity) {
+	public static Iterable<String> signatureOf(Class<? extends Entity> klass) {
 		List<String> signature = new ArrayList<String>();
-		for (Field field : entity.getClass().getDeclaredFields()) {
+		for (Field field : klass.getDeclaredFields()) {
 			if(isPrivateFinal(field) && !hasCollectionType(field)){
 				signature.add(field.getName().replaceFirst(PRIVATE_MARKER, ""));
 			}

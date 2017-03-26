@@ -1,18 +1,18 @@
 package com.seminar.model.entity;
 
 import static com.seminar.model.rule.Number.OPERATOR.GREATER_THAN;
-import static com.seminar.model.rule.Number.OPERATOR.LESS_THAN;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections4.MultiValuedMap;
-import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
-import com.seminar.model.Validation;
-import com.seminar.model.rule.Format;
 import com.seminar.model.rule.NotEmpty;
 import com.seminar.model.rule.Number;
+import com.seminar.model.rule.Rule;
+import com.seminar.model.rule.TimeFormat;
 
 public class Course implements Entity {
 
@@ -24,19 +24,37 @@ public class Course implements Entity {
 	private final Time _start;
 
 	private final List<Student> _students;
-	private final MultiValuedMap<String, String> _errors;
 	
-	public Course(String name, String description, String number, String location, String totalSeats, String start) {
-		_errors = new HashSetValuedHashMap<String, String>();
-		_name = new Validation("name", name, String.class).collect(_errors, new NotEmpty(name));
-		_start = new Validation("start", start, Time.class).collect(_errors, new Format(start, Time.REG_EX)); 
-		_location = new Validation("location", location, String.class).collect(_errors, new NotEmpty(location));
-		_totalSeats = new Validation("totalSeats", totalSeats, Integer.class).collect(_errors, new Number(totalSeats, GREATER_THAN, 0));
-		_number = (Integer) (number.isEmpty() ? 0 : new Validation("number", number,  Integer.class).collect(_errors, new Number(number, LESS_THAN, _totalSeats))) ;
+	public Course(String name, String description, Integer number, String location, Integer totalSeats, Time start) {
+		_name = name;
+		_start = start; 
+		_location = location;
+		_totalSeats = totalSeats;
+		_number = number ;
 		_description = description;
 		_students = new ArrayList<Student>();
 	}
+	
+	public Course(Map<String, String> params) {
+		this(
+			params.get("name"), 
+			params.get("description"), 
+			Integer.valueOf(params.get("number")), 
+			params.get("location"), 
+			Integer.valueOf(params.get("totalSeats")), 
+			new Time(params.get("start"))
+		 );
+	}
 
+	public static MultiValuedMap<String, Rule> rules(){
+		 return new ArrayListValuedHashMap<String, Rule>(){{
+			put("name", new NotEmpty());
+			put("start", new TimeFormat(Time.FORMAT));
+			put("location", new NotEmpty());
+			put("totalSeats", new Number(GREATER_THAN, 0));
+		}};
+	}
+	
 	public String getName() {
 		return _name;
 	}
@@ -65,20 +83,12 @@ public class Course implements Entity {
 		}
 	}
 	
-	public boolean isValid(){
-		return _errors.isEmpty();
-	}
-	
 	public Iterable<Student> getStudents() {
 		return _students;
 	}
 
 	public Time getTime() {
 		return _start;
-	}
-
-	public boolean isBrokenOn(String label) {
-		return _errors.containsKey(label);
 	}
 
 	public Integer getTotalSeats() {
