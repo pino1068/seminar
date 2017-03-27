@@ -44,7 +44,7 @@ public class CourseControllerTest {
 		Map<String, String> parameters = new HashMap<String, String>(){{
 			put("name", "courseName");
 			put("description", "desc");
-			put("number", "12");
+			put("id", "12");
 			put("location", "loc");
 			put("totalSeats", "15");
 			put("start", "10.10.2017");
@@ -77,7 +77,7 @@ public class CourseControllerTest {
 		Map<String, String> parameters = new HashMap<String, String>(){{
 			put("name", "");
 			put("description", "desc");
-			put("number", "0");
+			put("id", "0");
 			put("location", "loc");
 			put("totalSeats", "");
 			put("start", "wrong format");
@@ -85,8 +85,8 @@ public class CourseControllerTest {
 		
 		new CourseController().execute(new Context(new FakeRequest(Create.ROUTE, "POST", parameters), _response));
 		
-		assertThat(_response.content(), containsString("Provide a valid name!"));
-		assertThat(_response.content(), containsString("Provide a valid totalSeats!"));
-		assertThat(_response.content(), containsString("Provide a valid start!"));
+		assertThat(_response.content(), containsString("can't be empty"));
+		assertThat(_response.content(), containsString("must be a number"));
+		assertThat(_response.content(), containsString("must have dd.MM.yyyy format"));
 	}
 }

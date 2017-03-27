@@ -23,7 +23,7 @@ public class TableCourse implements Html{
 
 	private final Iterable<Course> _courseList;
 
-	private final List<String> _header = asList("name", "number", "location", "totalSeats", "start");
+	private final List<String> _header = asList("id","name", "location", "totalSeats", "start");
 	
 	public TableCourse(Iterable<Course> courseList) {
 		_courseList = courseList;
@@ -56,8 +56,8 @@ public class TableCourse implements Html{
 	
 	private Element row(Course course){
 		return tr(
+				td(text(course.getId())),
 				th(attr("scope -> row"),text(course.getName())),
-				td(text(course.getNumber())),
 				td(text(course.getLocation())),
 				td(text(course.getTotalSeats().toString())),
 				td(text(course.getTime().toString()))

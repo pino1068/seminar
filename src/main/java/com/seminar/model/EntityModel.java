@@ -1,11 +1,12 @@
 package com.seminar.model;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.collections4.MultiValuedMap;
-import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
+import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 
 import com.seminar.model.entity.Entity;
 import com.seminar.model.rule.Rule;
@@ -21,8 +22,8 @@ public class EntityModel {
 	}
 
 	public MultiValuedMap<String, String> validate(){
-		MultiValuedMap<String, String> errors = new ArrayListValuedHashMap<String, String>();
-		for (Entry<String, Collection<Rule>> pair: _rules.asMap().entrySet()) {
+		MultiValuedMap<String, String> errors = new HashSetValuedHashMap<String, String>();
+		for (Entry<String, Collection<Rule>> pair: new HashMap<String, Collection<Rule>>(_rules.asMap()).entrySet()) {
 			Collection<Rule> rules = pair.getValue();
 			for (Rule rule : rules) {
 				String value = _requestMap.get(pair.getKey());

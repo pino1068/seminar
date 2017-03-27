@@ -1,6 +1,6 @@
 package com.seminar.model.rule;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 public class Number implements Rule {
 
@@ -17,7 +17,7 @@ public class Number implements Rule {
 	}
 	@Override
 	public boolean applyOn(String what) {
-		if(!StringUtils.isNumeric(what) || _b.equals(null)){
+		if(!NumberUtils.isCreatable(what) || _b.equals(null)){
 			_message = "must be a number";
 			return false;
 		} else {

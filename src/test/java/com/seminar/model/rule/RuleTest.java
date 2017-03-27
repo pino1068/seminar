@@ -41,4 +41,14 @@ public class RuleTest {
 		assertThat(time.message(),is("must have " + Time.FORMAT + " format"));
 		assertThat(new TimeFormat(Time.FORMAT).applyOn("26.03.2017"), is(true));
 	}
+	
+	@Test
+	public void maxLength() throws Exception {
+		MaxLength maxLength = new MaxLength(3);
+		
+		assertThat(maxLength.applyOn("1234"), is(false));
+		assertThat(maxLength.applyOn(null), is(false));
+		assertThat(maxLength.applyOn("123"), is(true));
+		assertThat(maxLength.message(), is("must have no more than 3 chars"));
+	}
 }

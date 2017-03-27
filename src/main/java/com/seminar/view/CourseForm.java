@@ -20,7 +20,7 @@ import com.seminar.controller.course.Create;
 public class CourseForm implements Html{
 
 	private final FeedBack _feedBack;
-	private final List<String> _components = asList("name", "start" , "location", "number", "totalSeats");
+	private final List<String> _components = asList("id", "name", "start" , "location", "totalSeats");
 	
 	public CourseForm() {
 		this(new FeedBack());
@@ -40,7 +40,7 @@ public class CourseForm implements Html{
 						label(attr("class -> col-sm-2 control-label").add("for", component), capitalize(component)),                                                           
 						div(attr(" class  -> col-sm-10"),                                                                                                   
 							input(attr("class -> form-control", "type -> text").
-									add(_feedBack.placeholder(component)).
+									add(_feedBack.value(component)).
 									add("name", component).
 									add("id", component) 
 								),
@@ -60,7 +60,7 @@ public class CourseForm implements Html{
 							div(attr(" class  -> form-group"),                                                                                                      
 								label(attr("for -> description", "class -> col-sm-2 control-label"), "Description"),                                                           
 								div(attr(" class  -> col-sm-10"),
-									textarea(attr("class -> form-control", "id -> description", "name -> description", "placeholder -> description"))
+									textarea(attr("class -> form-control", "id -> description", "name -> description", "placeholder -> description"), _feedBack.text("description"))
 								)                                                                                                                    
 							),
 							div(attr(" class  -> form-group"),                                                                                                      

@@ -13,9 +13,8 @@ import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.junit.Test;
 
+import com.seminar.model.rule.MaxLength;
 import com.seminar.model.rule.NotEmpty;
-import com.seminar.model.rule.Number;
-import com.seminar.model.rule.Number.OPERATOR;
 import com.seminar.model.rule.Rule;
 
 public class EntityModelTest {
@@ -23,7 +22,7 @@ public class EntityModelTest {
 	private final MultiValuedMap<String, Rule> rules = new ArrayListValuedHashMap<String, Rule>(){{
 		put("a", new NotEmpty());
 		put("b", new NotEmpty());
-		putAll("c", asList( new NotEmpty(), new Number(OPERATOR.GREATER_THAN, 5)));
+		putAll("c", asList( new NotEmpty(), new MaxLength(-1)));
 	}};
 	
 	@Test
@@ -38,11 +37,11 @@ public class EntityModelTest {
 		
 		assertThat(errors.get("a"), contains(new NotEmpty().message()));
 		assertThat(errors.get("b"), is(empty()));
-		assertThat(errors.get("c"), contains(new NotEmpty().message(), "must be a number"));
+		assertThat(errors.get("c"), contains( new NotEmpty().message(), new MaxLength(-1).message()));
 	}
 	
 	@Test
-	public void testName() throws Exception {
+	public void createEntity() throws Exception {
 		Map<String, String> request = new HashMap<String, String>(){{
 			put("some", "xxx");
 			put("thing", "123");
@@ -52,5 +51,13 @@ public class EntityModelTest {
 		 
 		 assertThat(anEntity.some, is("xxx"));
 		 assertThat(anEntity.thing, is(123));
+	}
+	
+	@Test
+	public void emptyRequest() throws Exception {
+		MultiValuedMap<String, String> errors = new EntityModel(rules, new HashMap<String, String>()).validate();
+		
+		assertThat(errors.get("a"), contains(new NotEmpty().message()));
+		assertThat(errors.get("c"), contains(new NotEmpty().message(), new MaxLength(-1).message()));
 	}
 }

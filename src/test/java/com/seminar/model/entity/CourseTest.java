@@ -1,11 +1,14 @@
 package com.seminar.model.entity;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.commons.collections4.MultiValuedMap;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +20,7 @@ public class CourseTest {
 
 	@Before
 	public void setUp(){
-		_course = new Course("name", "description", 1, "somewhere", 1, new Time("20.09.2016"));
+		_course = new Course(1, "name", "description", "somewhere", 1, new Time("20.09.2016"));
 	}
 	
 	@Test
@@ -45,6 +48,20 @@ public class CourseTest {
 	}
 	
 	@Test
+	public void validCourse() throws Exception {
+		HashMap<String, String> params = new HashMap<String, String>(){{
+			put("id", "123");
+			put("name", "course");
+			put("start", "26.03.2017");
+			put("location", "somewhere");
+			put("totalSeats", "15");
+		}};
+		EntityModel validCourse = new EntityModel(Course.rules(), params);
+		
+		assertThat(validCourse.isValid(), is(true));
+	}
+	
+	@Test
 	public void courseNameStartLocationTotalSeatsAreMandatory() throws Exception {
 		
 		EntityModel invalidCourse = new EntityModel(Course.rules(), new HashMap<String, String>());
@@ -55,19 +72,22 @@ public class CourseTest {
 		assertThat(invalidCourse.isBrokenOn("location"), is(true));
 		assertThat(invalidCourse.isBrokenOn("totalSeats"), is(true));
 		assertThat(invalidCourse.isBrokenOn("description"), is(false));
-		assertThat(invalidCourse.isBrokenOn("number"), is(false));
+		assertThat(invalidCourse.isBrokenOn("id"), is(true));
 	}
 	
 	@Test
-	public void validCourse() throws Exception {
-		HashMap<String, String> params = new HashMap<String, String>(){{
-			put("name", "course");
+	public void courseHasLengthAndNumericLimit() throws Exception {
+		Map<String, String> params = new HashMap<String, String>(){{
+			put("name", "xxxxxxxxxxxxxxxx");
 			put("start", "26.03.2017");
-			put("location", "somewhere");
-			put("totalSeats", "15");
+			put("location", "xxxxxxxxxxxxxxxxxxxxxxx");
+			put("totalSeats", "9999");
 		}};
-		EntityModel validCourse = new EntityModel(Course.rules(), params);
 		
-		assertThat(validCourse.isValid(), is(true));
+		MultiValuedMap<String, String> errors = new EntityModel(Course.rules(), params).validate();
+		
+		assertThat(errors.get("name"), contains("must have no more than 15 chars"));
+		assertThat(errors.get("location"), contains("must have no more than 20 chars"));
+		assertThat(errors.get("totalSeats"), contains("must have no more than 3 chars", "must be less than 100"));
 	}
 }

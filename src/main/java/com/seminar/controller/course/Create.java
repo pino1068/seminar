@@ -51,8 +51,8 @@ public class Create implements Controller {
 	
 	private Component componentType(String label, EntityModel course, Context context){
 		return course.isBrokenOn(label) 
-				? new Component(TYPE.ERROR, "Provide a valid " + label + "!", context.parameter(label))
-				:  new Component(TYPE.SUCCESS, "", context.parameter(label));
+				? new Component(TYPE.ERROR, course.validate().get(label), context.parameter(label))
+				:  new Component(TYPE.SUCCESS, context.parameter(label));
 		
 	}
 }

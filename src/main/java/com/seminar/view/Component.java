@@ -1,31 +1,30 @@
 package com.seminar.view;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class Component {
 
-	private final String _message;
-	private final String _placeHolder;
+	private final Collection<String> _messages;
+	private final String _userInput;
 	private final TYPE _type;
 
-	public Component(TYPE type, String message, String placeHolder) {
+	public Component(TYPE type, Collection<String> messages, String userinput) {
 		_type = type;
-		_message = message;
-		_placeHolder = placeHolder;
+		_messages = messages;
+		_userInput = userinput;
 	}
 	
-	public Component(String message, String placeHolder) {
-		this(TYPE.ERROR, message, placeHolder);
+	public Component(TYPE type, String userinput) {
+		this(type, new ArrayList<String>(), userinput);
 	}
 	
-	public Component() {
-		this(TYPE.ERROR, "", "");
-	}
-	
-	public String message() {
-		return _message;
+	public Collection<String> messages() {
+		return _messages;
 	}
 
-	public String placeHolder() {
-		return _placeHolder;
+	public String userInput() {
+		return _userInput;
 	}
 
 	public TYPE type() {

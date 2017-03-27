@@ -1,6 +1,7 @@
 package com.seminar.route;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,11 @@ public class Context {
 	}
 	
 	public Map<String, String> requestMap(){
-		return _request.getParameterMap();
+		Map<String, String> convert = new HashMap<String, String>();
+		for (Object key : _request.getParameterMap().keySet()) {
+			convert.put(key.toString(), _request.getParameter(key.toString()));
+		}
+		return convert;
 	}
 	
 	private boolean matches(String method){

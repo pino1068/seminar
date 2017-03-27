@@ -1,6 +1,8 @@
 package com.seminar.model.entity;
 
 import static com.seminar.model.rule.Number.OPERATOR.GREATER_THAN;
+import static com.seminar.model.rule.Number.OPERATOR.LESS_THAN;
+import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.Map;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
+import com.seminar.model.rule.MaxLength;
 import com.seminar.model.rule.NotEmpty;
 import com.seminar.model.rule.Number;
 import com.seminar.model.rule.Rule;
@@ -18,28 +21,28 @@ public class Course implements Entity {
 
 	private final String _name;
 	private final String _description;
-	private final Integer _number;
+	private final Integer _id;
 	private final String _location;
 	private final Integer _totalSeats;
 	private final Time _start;
 
 	private final List<Student> _students;
 	
-	public Course(String name, String description, Integer number, String location, Integer totalSeats, Time start) {
+	public Course(Integer id, String name, String description, String location, Integer totalSeats, Time start) {
 		_name = name;
 		_start = start; 
 		_location = location;
 		_totalSeats = totalSeats;
-		_number = number ;
+		_id = id ;
 		_description = description;
 		_students = new ArrayList<Student>();
 	}
 	
 	public Course(Map<String, String> params) {
 		this(
+			Integer.valueOf(params.get("id")), 
 			params.get("name"), 
 			params.get("description"), 
-			Integer.valueOf(params.get("number")), 
 			params.get("location"), 
 			Integer.valueOf(params.get("totalSeats")), 
 			new Time(params.get("start"))
@@ -48,10 +51,11 @@ public class Course implements Entity {
 
 	public static MultiValuedMap<String, Rule> rules(){
 		 return new ArrayListValuedHashMap<String, Rule>(){{
-			put("name", new NotEmpty());
+			put("id", new NotEmpty());
+			putAll("name", asList(new NotEmpty(), new MaxLength(15)));
 			put("start", new TimeFormat(Time.FORMAT));
-			put("location", new NotEmpty());
-			put("totalSeats", new Number(GREATER_THAN, 0));
+			putAll("location", asList(new NotEmpty(), new MaxLength(20)));
+			putAll("totalSeats", asList(new Number(GREATER_THAN, 0), new Number(LESS_THAN, 100), new MaxLength(3)));
 		}};
 	}
 	
@@ -63,8 +67,8 @@ public class Course implements Entity {
 		return _description;
 	}
 	
-	public String getNumber() {
-		return _number.toString();
+	public String getId() {
+		return _id.toString();
 	}
 	
 	public String getLocation() {
