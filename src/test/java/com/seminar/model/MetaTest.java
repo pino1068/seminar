@@ -43,10 +43,4 @@ public class MetaTest {
 		
 		assertThat(Meta.signatureOf(Something.class), is(expected));
 	}
-	
-	@Test
-	public void getFieldName() throws Exception {
-		Something something = new Something();
-		assertThat(Meta.name(something, something._a ), is("a"));
-	}
 }

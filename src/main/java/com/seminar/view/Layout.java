@@ -38,7 +38,7 @@ public class Layout implements Html {
 				  head(
 				    meta(attr("http-equiv -> content-type","content -> text/html; charset=UTF-8")),
 				    meta(attr("charset -> utf-8")),
-				    title("Seminar"),
+				    title(_title),
 				    meta(attr("name -> viewport","content -> width=device-width, initial-scale=1")),
 				    meta(attr("http-equiv -> X-UA-Compatible","content -> IE=edge")),
 				    link(attr("rel -> stylesheet","href -> /css/bootstrap.min.css","media -> screen")),

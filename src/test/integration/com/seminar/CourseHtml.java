@@ -18,6 +18,6 @@ public class CourseHtml {
 		HtmlPage page = webClient.getPage("http://localhost:8080/course/create");
 
 		assertThat(page.getTitleText(), is("create course"));
-		assertThat(page.asText(), containsString("Description"));
+		assertThat(page.asText(), containsString("Manage your courses!"));
 	}
 }
