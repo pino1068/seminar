@@ -4,7 +4,6 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +14,15 @@ import org.junit.Test;
 import com.seminar.model.entity.Entity;
 
 public class MetaTest {
-
+	
+	class Something implements Entity {
+		private final  Integer _a = null;
+		private final  Integer _b = null;
+		private final  Date _c = null;
+		private final  List<String> _collection = null;
+		private final  MultiValuedMap<String, String> _weirdCollection = null; 
+	}
+	
 	@Test
 	public void signatureRemoveUnderscore() throws Exception {
 		Entity xxx = new Entity() {
@@ -24,11 +31,7 @@ public class MetaTest {
 			private final Date _c = null;
 			private final BigDecimal d = null;
 		};
-		String yyy = "value";
-		for (Field field : yyy.getClass().getDeclaredFields()) {
-			System.out.println(field.getName());
-		}
-		
+	
 		Iterable<String> expected = asList("a", "b", "c", "d");
 		
 		assertThat(Meta.signatureOf(xxx.getClass()), is(expected));
@@ -36,16 +39,14 @@ public class MetaTest {
 	
 	@Test
 	public void signatureDontConsiderCollectionType() throws Exception {
-		class Something implements Entity {
-			private final  Integer _a = null;
-			private final  Integer _b = null;
-			private final  Date _c = null;
-			private final  List<String> _collection = null;
-			private final  MultiValuedMap<String, String> _weirdCollection = null; 
-		}
-		
 		Iterable<String> expected = asList("a", "b", "c");
 		
 		assertThat(Meta.signatureOf(Something.class), is(expected));
+	}
+	
+	@Test
+	public void getFieldName() throws Exception {
+		Something something = new Something();
+		assertThat(Meta.name(something, something._a ), is("a"));
 	}
 }

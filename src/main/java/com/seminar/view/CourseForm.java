@@ -4,7 +4,6 @@ import static com.github.manliogit.javatags.lang.HtmlHelper.attr;
 import static com.github.manliogit.javatags.lang.HtmlHelper.div;
 import static com.github.manliogit.javatags.lang.HtmlHelper.form;
 import static com.github.manliogit.javatags.lang.HtmlHelper.group;
-import static com.github.manliogit.javatags.lang.HtmlHelper.h1;
 import static com.github.manliogit.javatags.lang.HtmlHelper.input;
 import static com.github.manliogit.javatags.lang.HtmlHelper.label;
 import static com.github.manliogit.javatags.lang.HtmlHelper.textarea;
@@ -51,26 +50,19 @@ public class CourseForm implements Html{
 		}
 		
 		return 
-			div(attr(" class  -> container"),                                                                                                                       
-				div(attr(" class  -> row"),                                                                                                                         
-					div(attr("class -> col-md-6 col-md-offset-3"),                                                                                                
-						h1(attr("class  -> page-header text-center"), "Create Course"),                                                                     
-						form(attr("class -> form-horizontal", "method -> post", "action -> " + Create.ROUTE),                                                       
-							group(input),
-							div(attr(" class  -> form-group"),                                                                                                      
-								label(attr("for -> description", "class -> col-sm-2 control-label"), "Description"),                                                           
-								div(attr(" class  -> col-sm-10"),
-									textarea(attr("class -> form-control", "id -> description", "name -> description", "placeholder -> description"), _feedBack.text("description"))
-								)                                                                                                                    
-							),
-							div(attr(" class  -> form-group"),                                                                                                      
-								div(attr(" class  -> col-sm-10 col-sm-offset-2"),                                                                                   
-									input(attr("id -> submit", "name -> submit", "type -> submit",  "value -> Send", "class -> btn btn-primary"))                                  
-								)                                                                                                                    
-							)                                                                                                                        
-						)                                                                                                                           
-					)                                                                                                                                
-				)                                                                                                                                    
-			);
+			form(attr("class -> form-horizontal", "method -> post", "action -> " + Create.ROUTE),                                                       
+				group(input),
+				div(attr(" class  -> form-group"),                                                                                                      
+					label(attr("for -> description", "class -> col-sm-2 control-label"), "Description"),                                                           
+					div(attr(" class  -> col-sm-10"),
+						textarea(attr("class -> form-control", "id -> description", "name -> description", "placeholder -> description"), _feedBack.text("description"))
+					)                                                                                                                    
+				),
+				div(attr(" class  -> form-group"),                                                                                                      
+					div(attr(" class  -> col-sm-10 col-sm-offset-2"),                                                                                   
+						input(attr("id -> submit", "name -> submit", "type -> submit",  "value -> Send", "class -> btn btn-primary"))                                  
+					)                                                                                                                    
+				)                                                                                                                        
+			);                                                                                                                           
 	}
 }

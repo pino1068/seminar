@@ -1,9 +1,7 @@
 package com.seminar.view;
 
 import static com.github.manliogit.javatags.lang.HtmlHelper.attr;
-import static com.github.manliogit.javatags.lang.HtmlHelper.div;
 import static com.github.manliogit.javatags.lang.HtmlHelper.group;
-import static com.github.manliogit.javatags.lang.HtmlHelper.h1;
 import static com.github.manliogit.javatags.lang.HtmlHelper.table;
 import static com.github.manliogit.javatags.lang.HtmlHelper.tbody;
 import static com.github.manliogit.javatags.lang.HtmlHelper.td;
@@ -67,16 +65,9 @@ public class TableCourse implements Html{
 	@Override
 	public Element build() {
 		return 
-			div(attr(" class  -> container"),                                                                                                                       
-				div(attr(" class  -> row"),                                                                                                                         
-					div(attr("class -> col-md-6 col-md-offset-3"),
-						h1(attr("class  -> page-header text-center"), "Course List"), 
-						table(attr("class -> table table-striped"),
-							header(),
-							body()
-						)
-					)
-				)
-			);
+				table(attr("class -> table table-striped"),
+					header(),
+					body()
+				);
 	}
 }

@@ -38,5 +38,18 @@ public class Meta {
 	private static boolean isPrivateFinal(Field field) {
 		return (field.getModifiers() & Modifier.PRIVATE & Modifier.FINAL) == (Modifier.PRIVATE & Modifier.FINAL) && !field.getName().equals("this$0");
 	}
+
+	public static String name(Entity entity, Object target) {
+		for (Field field : entity.getClass().getDeclaredFields()) {
+			try {
+				if(field.get(entity).equals(target)){
+					return field.getName();
+				}
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return "";
+	}
 	
 }
