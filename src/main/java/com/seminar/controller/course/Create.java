@@ -23,7 +23,7 @@ public class Create implements Controller {
 
 	@Override
 	public boolean handles(String url) {
-		return url.matches(ROUTE.regEx());
+		return ROUTE.matches(url);
 	}
 	
 	@Override

@@ -9,11 +9,12 @@ import com.seminar.view.TableCourse;
 
 public class AllCourse implements Controller {
 
-	public final static Route ROUTE = new Route("/course/?");
+//	public final static Route ROUTE = new Route("/course/?");
+	public final static Route ROUTE = new Route("/", "/course/?");
 	
 	@Override
 	public boolean handles(String url) {
-		return url.matches(ROUTE.regEx());
+		return ROUTE.matches(url);
 	}
 	
 	@Override

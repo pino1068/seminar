@@ -17,7 +17,7 @@ public class CourseController implements Controller {
 	@Override
 	public boolean handles(String url) {
 		for (Route registered : REGISTERED) {
-			if(url.matches(registered.regEx())){
+			if(registered.matches(url)){
 				return true;
 			}
 		}

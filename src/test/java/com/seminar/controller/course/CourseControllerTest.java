@@ -33,8 +33,8 @@ public class CourseControllerTest {
 		assertTrue(new CourseController().handles("/course/"));
 		assertTrue(new CourseController().handles("/course/create"));
 		assertTrue(new CourseController().handles("/course/create/"));
-		
-		assertFalse(new CourseController().handles("/"));
+		assertTrue(new CourseController().handles("/"));
+
 		assertFalse(new CourseController().handles("/some/1"));
 		assertFalse(new CourseController().handles("/courseany"));
 	}

@@ -29,19 +29,19 @@ public class NotFound implements Html{
 	@Override
 	public Element build() {
 		return
-			div(attr("class -> container"),
-	    		div(attr("class -> col-md-6 col-md-offset-3"),
-				    div(attr("class -> error-template"),
-					    h1("Oops!"),
-					    h2("404 Not Found"),
-					    div(attr("class -> error-details"),
-							text("Sorry, an error has occured, Requested page not found!"),
-							br()
-					    )
-					)
+		    div(attr("class -> error-template"),
+			    h1("Oops!"),
+			    h2(errorType()),
+			    div(attr("class -> error-details"),
+					text("Sorry, an error has occured, Requested page not found!")
 			    ),
+			   br(),
 			   errorPanel()
 			);
+	}
+
+	private String errorType() {
+		return _rootCauseStackTrace.length > 0 ? "500 Server Error" : "404 Not Found";
 	}
 
 	private Element errorPanel() {
@@ -51,11 +51,9 @@ public class NotFound implements Html{
 				out.add(div(text(line)));
 			}
 			return
-				div(attr("class -> row"),
-					div(attr("class -> panel panel-danger"),
-						div(attr("class -> panel-heading"),h4(attr("class -> panel-title"), "Error!")),
-						div(attr("class -> panel-body"), group(out))
-					)
+				div(attr("class -> panel panel-danger"),
+					div(attr("class -> panel-heading"),h4(attr("class -> panel-title"), "Error!")),
+					div(attr("class -> panel-body", "style -> text-align: left;"), group(out))
 				);
 		}
 		return div();
