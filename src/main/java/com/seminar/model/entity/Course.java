@@ -19,9 +19,16 @@ import com.seminar.model.rule.TimeFormat;
 
 public class Course implements Entity {
 
-	private final String _name;
-	private final String _description;
+	public static final String ID = "id";
+	public static final String NAME = "name";
+	public static final String DESCRIPTION = "description";
+	public static final String LOCATION = "location";
+	public static final String TOTAL_SEATS = "totalSeats";
+	public static final String START = "start";
+	
 	private final Integer _id;
+	public final String _name;
+	private final String _description;
 	private final String _location;
 	private final Integer _totalSeats;
 	private final Time _start;
@@ -29,33 +36,33 @@ public class Course implements Entity {
 	private final List<Student> _students;
 	
 	public Course(Integer id, String name, String description, String location, Integer totalSeats, Time start) {
+		_id = id ;
 		_name = name;
-		_start = start; 
+		_description = description;
 		_location = location;
 		_totalSeats = totalSeats;
-		_id = id ;
-		_description = description;
+		_start = start; 
 		_students = new ArrayList<Student>();
 	}
 	
 	public Course(Map<String, String> params) {
 		this(
-			Integer.valueOf(params.get("id")), 
-			params.get("name"), 
-			params.get("description"), 
-			params.get("location"), 
-			Integer.valueOf(params.get("totalSeats")), 
-			new Time(params.get("start"))
+			Integer.valueOf(params.get(ID)), 
+			params.get(NAME), 
+			params.get(DESCRIPTION), 
+			params.get(LOCATION), 
+			Integer.valueOf(params.get(TOTAL_SEATS)), 
+			new Time(params.get(START))
 		 );
 	}
 
 	public static MultiValuedMap<String, Rule> rules(){
 		 return new ArrayListValuedHashMap<String, Rule>(){{
-			put("id", new NotEmpty());
-			putAll("name", asList(new NotEmpty(), new MaxLength(15)));
-			put("start", new TimeFormat(Time.FORMAT));
-			putAll("location", asList(new NotEmpty(), new MaxLength(20)));
-			putAll("totalSeats", asList(new Number(GREATER_THAN, 0), new Number(LESS_THAN, 100), new MaxLength(3)));
+			put(ID,         new NotEmpty());
+			putAll(NAME, 			  asList(new NotEmpty(), new MaxLength(15)));
+			putAll(LOCATION, 	  asList(new NotEmpty(), new MaxLength(20)));
+			putAll(TOTAL_SEATS, asList(new Number(GREATER_THAN, 0), new Number(LESS_THAN, 100), new MaxLength(3)));
+			put(START, 				  new TimeFormat(Time.FORMAT));
 		}};
 	}
 	

@@ -9,6 +9,11 @@ import static com.github.manliogit.javatags.lang.HtmlHelper.text;
 import static com.github.manliogit.javatags.lang.HtmlHelper.th;
 import static com.github.manliogit.javatags.lang.HtmlHelper.thead;
 import static com.github.manliogit.javatags.lang.HtmlHelper.tr;
+import static com.seminar.model.entity.Course.ID;
+import static com.seminar.model.entity.Course.LOCATION;
+import static com.seminar.model.entity.Course.NAME;
+import static com.seminar.model.entity.Course.START;
+import static com.seminar.model.entity.Course.TOTAL_SEATS;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
@@ -21,7 +26,7 @@ public class TableCourse implements Html{
 
 	private final Iterable<Course> _courseList;
 
-	private final List<String> _header = asList("id","name", "location", "totalSeats", "start");
+	private final List<String> _header = asList(ID, NAME, LOCATION, TOTAL_SEATS, START);
 	
 	public TableCourse(Iterable<Course> courseList) {
 		_courseList = courseList;

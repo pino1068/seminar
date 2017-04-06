@@ -7,6 +7,11 @@ import static com.github.manliogit.javatags.lang.HtmlHelper.group;
 import static com.github.manliogit.javatags.lang.HtmlHelper.input;
 import static com.github.manliogit.javatags.lang.HtmlHelper.label;
 import static com.github.manliogit.javatags.lang.HtmlHelper.textarea;
+import static com.seminar.model.entity.Course.ID;
+import static com.seminar.model.entity.Course.LOCATION;
+import static com.seminar.model.entity.Course.NAME;
+import static com.seminar.model.entity.Course.START;
+import static com.seminar.model.entity.Course.TOTAL_SEATS;
 import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 
@@ -19,7 +24,6 @@ import com.seminar.controller.course.Create;
 public class CourseForm implements Html{
 
 	private final FeedBack _feedBack;
-	private final List<String> _components = asList("id", "name", "start" , "location", "totalSeats");
 	
 	public CourseForm() {
 		this(new FeedBack());
@@ -33,7 +37,7 @@ public class CourseForm implements Html{
 	public Element build() {
 		
 		List<Element> input = new ArrayList<Element>();
-		for (String component: _components) {
+		for (String component: asList(ID, NAME, START, LOCATION, TOTAL_SEATS)) {
 			input.add(
 					div(attr("class -> form-group").add(_feedBack.state(component)) ,                                                                                                      
 						label(attr("class -> col-sm-2 control-label").add("for", component), capitalize(component)),                                                           

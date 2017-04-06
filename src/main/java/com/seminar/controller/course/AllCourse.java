@@ -9,7 +9,6 @@ import com.seminar.view.TableCourse;
 
 public class AllCourse implements Controller {
 
-//	public final static Route ROUTE = new Route("/course/?");
 	public final static Route ROUTE = new Route("/", "/course/?");
 	
 	@Override
