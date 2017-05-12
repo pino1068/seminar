@@ -7,7 +7,6 @@ import static com.github.manliogit.javatags.lang.HtmlHelper.group;
 import static com.github.manliogit.javatags.lang.HtmlHelper.input;
 import static com.github.manliogit.javatags.lang.HtmlHelper.label;
 import static com.github.manliogit.javatags.lang.HtmlHelper.textarea;
-import static com.seminar.model.entity.Course.ID;
 import static com.seminar.model.entity.Course.LOCATION;
 import static com.seminar.model.entity.Course.NAME;
 import static com.seminar.model.entity.Course.START;
@@ -37,7 +36,7 @@ public class CourseForm implements Html{
 	public Element build() {
 		
 		List<Element> input = new ArrayList<Element>();
-		for (String component: asList(ID, NAME, START, LOCATION, TOTAL_SEATS)) {
+		for (String component: asList(NAME, START, LOCATION, TOTAL_SEATS)) {
 			input.add(
 					div(attr("class -> form-group").add(_feedBack.state(component)) ,                                                                                                      
 						label(attr("class -> col-sm-2 control-label").add("for", component), capitalize(component)),                                                           

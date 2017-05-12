@@ -1,6 +1,6 @@
 package com.seminar.controller;
 
-import com.seminar.route.Context;
+import com.Context;
 
 public interface Controller {
 	boolean handles(String url);

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+<Resource name="jdbc/prod" auth="Container"
+      factory="com.zaxxer.hikari.HikariJNDIFactory"
+      type="javax.sql.DataSource"
+      minimumIdle="5" 
+      maximumPoolSize="10"
+      connectionTimeout="300000"
+      dataSourceClassName="org.sqlite.SQLiteDataSource" 
+      dataSource.url="jdbc:sqlite:${user.home}/app-deployments/db/seminar.db"/>
+</Context>

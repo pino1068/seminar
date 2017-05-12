@@ -72,7 +72,6 @@ public class CourseTest {
 		assertThat(invalidCourse.isBrokenOn("location"), is(true));
 		assertThat(invalidCourse.isBrokenOn("totalSeats"), is(true));
 		assertThat(invalidCourse.isBrokenOn("description"), is(false));
-		assertThat(invalidCourse.isBrokenOn("id"), is(true));
 	}
 	
 	@Test

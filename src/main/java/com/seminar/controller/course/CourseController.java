@@ -4,9 +4,9 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
+import com.Context;
 import com.Route;
 import com.seminar.controller.Controller;
-import com.seminar.route.Context;
 
 public class CourseController implements Controller {
 

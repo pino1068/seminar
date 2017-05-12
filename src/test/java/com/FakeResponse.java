@@ -1,4 +1,4 @@
-package com.seminar.controller;
+package com;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +9,10 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
+import com.Context;
+import com.SeminarFactory;
+import com.seminar.controller.Controller;
 
 public class FakeResponse implements HttpServletResponse {
 
@@ -56,6 +60,21 @@ public class FakeResponse implements HttpServletResponse {
 	
 	public String getHeader(String key){
 		return _header.get(key);
+	}
+	
+	@Override
+	public void sendRedirect(String arg0) throws IOException {
+		_status = HttpServletResponse.SC_FOUND;
+		setHeader("Location", arg0);
+		for (Controller c : new SeminarFactory().create()) {
+			if(c.handles(arg0)){
+				try {
+					c.execute(new Context(new FakeRequest(arg0, "GET", new HashMap<String, String>()), this,  Db.connection()));
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -193,13 +212,6 @@ public class FakeResponse implements HttpServletResponse {
 	@Override
 	public void sendError(int arg0, String arg1) throws IOException {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void sendRedirect(String arg0) throws IOException {
-		_status = HttpServletResponse.SC_FOUND;
-		setHeader("Location", arg0);
 	}
 
 	@Override

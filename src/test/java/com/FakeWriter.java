@@ -1,4 +1,4 @@
-package com.seminar.controller;
+package com;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

@@ -13,7 +13,10 @@ public class TimeFormat implements Rule {
 	@Override
 	public boolean applyOn(String what) {
 		try {
-			new SimpleDateFormat(_format).parse(what);
+			
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(_format);
+			simpleDateFormat.setLenient(false);
+			simpleDateFormat.parse(what);
 			return true;
 		} catch (Exception e) {
 			return false;

@@ -1,4 +1,4 @@
-package com.seminar.controller;
+package com;
 
 import java.io.BufferedReader;
 import java.io.IOException;

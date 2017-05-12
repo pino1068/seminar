@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure  class="org.eclipse.jetty.webapp.WebAppContext">
+    <New id="prod" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/prod</Arg>
+     <Arg>
+       <New class="com.zaxxer.hikari.HikariDataSource">
+         <Arg>
+            <New class="com.zaxxer.hikari.HikariConfig">
+               <Set name="dataSourceClassName">org.sqlite.SQLiteDataSource</Set>
+               <Call name="addDataSourceProperty">
+                  <Arg>url</Arg>
+                  <Arg>jdbc:sqlite:src/main/db/seminar.db</Arg>
+               </Call>
+            </New>
+         </Arg>
+      </New>
+    </Arg>
+  </New>
+</Configure>

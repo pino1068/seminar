@@ -5,11 +5,12 @@ import static com.seminar.model.Meta.signatureOf;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.Context;
 import com.Route;
 import com.seminar.controller.Controller;
 import com.seminar.model.EntityModel;
 import com.seminar.model.entity.Course;
-import com.seminar.route.Context;
+import com.seminar.model.mapper.CourseMapper;
 import com.seminar.view.Component;
 import com.seminar.view.Component.TYPE;
 import com.seminar.view.CourseForm;
@@ -33,8 +34,9 @@ public class Create implements Controller {
 
 				EntityModel entity = new EntityModel(Course.rules(), context.requestMap());
 				if(entity.isValid()){
-					context.repository().add(entity.<Course>create(Course.class));
+					new CourseMapper(context.connection()).insert(entity.<Course>create(Course.class));
 					context.response().sendRedirect(AllCourse.ROUTE.toString());
+					return;
 				} else {
 					Map<String, Component> errors = new HashMap<String, Component>();
 					for (String component : signatureOf(Course.class)) {

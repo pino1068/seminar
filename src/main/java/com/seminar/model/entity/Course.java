@@ -27,7 +27,7 @@ public class Course implements Entity {
 	public static final String START = "start";
 	
 	private final Integer _id;
-	public final String _name;
+	private final String _name;
 	private final String _description;
 	private final String _location;
 	private final Integer _totalSeats;
@@ -47,7 +47,7 @@ public class Course implements Entity {
 	
 	public Course(Map<String, String> params) {
 		this(
-			Integer.valueOf(params.get(ID)), 
+			null,
 			params.get(NAME), 
 			params.get(DESCRIPTION), 
 			params.get(LOCATION), 
@@ -58,7 +58,6 @@ public class Course implements Entity {
 
 	public static MultiValuedMap<String, Rule> rules(){
 		 return new ArrayListValuedHashMap<String, Rule>(){{
-			put(ID,         new NotEmpty());
 			putAll(NAME, 			  asList(new NotEmpty(), new MaxLength(15)));
 			putAll(LOCATION, 	  asList(new NotEmpty(), new MaxLength(20)));
 			putAll(TOTAL_SEATS, asList(new Number(GREATER_THAN, 0), new Number(LESS_THAN, 100), new MaxLength(3)));

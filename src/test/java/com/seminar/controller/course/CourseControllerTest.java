@@ -11,20 +11,27 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.seminar.controller.FakeRequest;
-import com.seminar.controller.FakeResponse;
-import com.seminar.route.Context;
+import com.Context;
+import com.Db;
+import com.FakeRequest;
+import com.FakeResponse;
 
 public class CourseControllerTest {
 
 	private FakeResponse _response;
-	
+
 	@Before
 	public void setUp() {
 		_response = new FakeResponse();
+	}
+	
+	@After
+	public void tearDown(){
+		Db.close();
 	}
 	
 	@Test
@@ -50,12 +57,19 @@ public class CourseControllerTest {
 			put("start", "10.10.2017");
 		}};
 		
-		Context context = new Context(new FakeRequest(Create.ROUTE, "POST", parameters), _response);
+		Context context = new Context(new FakeRequest(Create.ROUTE, "POST", parameters), _response, Db.connection());
 		new CourseController().execute(context);
 		
 		assertThat(_response.status(), is(HttpServletResponse.SC_FOUND));
 		assertThat(_response.getHeader("Location"), is(AllCourse.ROUTE.toString()));
-		assertThat(context.repository().get(0).getName(), is("courseName"));
+		assertThat(_response.content(), containsString("courseName"));
+	}
+	
+	@Test
+	public void renderCourseList() throws Exception {
+		new CourseController().execute(new Context(new FakeRequest(AllCourse.ROUTE, "GET"), _response, Db.connection()));
+		
+		assertThat(_response.content(), containsString("<thead>"));
 	}
 	
 	@Test
@@ -63,13 +77,6 @@ public class CourseControllerTest {
 		new CourseController().execute(new Context(new FakeRequest(Create.ROUTE, "GET"), _response));
 		
 		assertThat(_response.content(), containsString("<form class='form-horizontal' method='post' action='" + Create.ROUTE + "'>"));
-	}
-	
-	@Test
-	public void renderCourseList() throws Exception {
-		new CourseController().execute(new Context(new FakeRequest(AllCourse.ROUTE, "GET"), _response));
-		
-		assertThat(_response.content(), containsString("<thead>"));
 	}
 	
 	@Test

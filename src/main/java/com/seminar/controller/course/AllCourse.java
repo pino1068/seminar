@@ -1,8 +1,10 @@
 package com.seminar.controller.course;
 
+import com.Context;
 import com.Route;
 import com.seminar.controller.Controller;
-import com.seminar.route.Context;
+import com.seminar.model.entity.Course;
+import com.seminar.model.mapper.CourseMapper;
 import com.seminar.view.Layout;
 import com.seminar.view.ResponseWrapper;
 import com.seminar.view.TableCourse;
@@ -18,6 +20,8 @@ public class AllCourse implements Controller {
 	
 	@Override
 	public void execute(Context context) throws Exception {
-		new ResponseWrapper(context.response()).render(new Layout("courses", new TableCourse(context.repository())));
+		Iterable<Course> courses = new CourseMapper(context.connection()).findAll();
+		
+		new ResponseWrapper(context.response()).render(new Layout("courses", new TableCourse(courses)));
 	}
 }
