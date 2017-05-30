@@ -17,7 +17,6 @@ public class DeleteCourse implements Controller {
 	@Override
 	public void execute(Context context) throws Exception {
 		String id = ROUTE.getId(context.requestUri());
-		System.out.println("deleting id="+id);
 		new CourseMapper(context.connection()).delete(id);
 		new AllCourse().execute(context);
 	}
