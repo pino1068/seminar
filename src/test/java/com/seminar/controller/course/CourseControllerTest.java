@@ -2,9 +2,7 @@ package com.seminar.controller.course;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +31,10 @@ public class CourseControllerTest {
 	public void tearDown(){
 		Db.close();
 	}
-	
+	@Test
+	public void casso() throws Exception {
+//		System.out.println("/course/show/1".matches(ShowCourse.ROUTE));
+	}
 	@Test
 	public void handlesItsOwnRoutes() throws Exception {
 		assertTrue(new CourseController().handles("/course"));
@@ -41,6 +42,7 @@ public class CourseControllerTest {
 		assertTrue(new CourseController().handles("/course/create"));
 		assertTrue(new CourseController().handles("/course/create/"));
 		assertTrue(new CourseController().handles("/"));
+		assertTrue(new CourseController().handles("/course/show/1"));
 
 		assertFalse(new CourseController().handles("/some/1"));
 		assertFalse(new CourseController().handles("/courseany"));
@@ -63,6 +65,12 @@ public class CourseControllerTest {
 		assertThat(_response.status(), is(HttpServletResponse.SC_FOUND));
 		assertThat(_response.getHeader("Location"), is(AllCourse.ROUTE.toString()));
 		assertThat(_response.content(), containsString("courseName"));
+	}
+	
+	@Test
+	public void renderLink() throws Exception {
+		assertThat(ShowCourse.ROUTE.with("1"), is("/course/show/1"));
+		assertThat(ShowCourse.ROUTE.getId("/course/show/1"), is("1"));
 	}
 	
 	@Test

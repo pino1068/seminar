@@ -19,8 +19,20 @@ public class Route {
 		return false;
 	}
 	
+	public String with(Object item){
+		return _regEx[0].replaceAll("\\\\d", "").replaceAll("\\+", item.toString());
+	}
+	
 	@Override
 	public String toString() {
 		return _regEx[0].replaceAll("/\\?", StringUtils.EMPTY);
+	}
+
+	public String getId(String uri) {
+		String nonNumber = _regEx[0].split("\\\\d+")[0];
+		String[] id = uri.split(nonNumber);
+		if(id.length>1)
+			return id[1];
+		return null;
 	}
 }

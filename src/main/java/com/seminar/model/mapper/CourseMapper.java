@@ -11,7 +11,6 @@ import com.seminar.model.entity.Course;
 import com.seminar.model.entity.Time;
 
 public class CourseMapper {
-	private static final String List = null;
 	private final Connection _connection;
 
 	public CourseMapper(Connection connection) {
@@ -54,6 +53,42 @@ public class CourseMapper {
 			preparedStatement.close();
 			rs.close();
 			return courses;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public Course get(Object id) {
+		try {
+			PreparedStatement preparedStatement = _connection.prepareStatement("select * from Course where id = ?");
+			preparedStatement.setInt(1, Integer.valueOf(id.toString()));
+			ResultSet rs = preparedStatement.executeQuery();
+			Course c = new Course(-1,"","","",2,new Time(""));
+			if(rs.next()){
+					c  = new Course(
+							rs.getInt(1),
+							rs.getString(2),
+							rs.getString(3),
+							rs.getString(4),
+							rs.getInt(5),
+							new Time(rs.getString(6))
+						);
+			}
+			preparedStatement.close();
+			rs.close();
+			return c;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void delete(Object id) {
+		try {
+			String deleteSQL = "delete from Course where id = ?";
+			PreparedStatement preparedStatement = _connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, Integer.valueOf(id.toString()));
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

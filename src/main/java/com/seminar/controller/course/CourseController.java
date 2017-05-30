@@ -10,9 +10,8 @@ import com.seminar.controller.Controller;
 
 public class CourseController implements Controller {
 
-	private static final Iterable<Route> REGISTERED = asList(
-			AllCourse.ROUTE, Create.ROUTE
-		);
+	private static final List<Controller> ACTIONS 	= asList(new AllCourse(), new Create(), new ShowCourse(), new DeleteCourse());
+	private static final Iterable<Route> REGISTERED = asList(AllCourse.ROUTE, Create.ROUTE, ShowCourse.ROUTE, DeleteCourse.ROUTE);
 	
 	@Override
 	public boolean handles(String url) {
@@ -26,11 +25,9 @@ public class CourseController implements Controller {
 
 	@Override
 	public void execute(Context context) throws Exception {
-
 		context.response().setContentType("text/html;charset=UTF-8");
 
-		List<Controller> actions = asList(new AllCourse(), new Create());
-		for (Controller action : actions) {
+		for (Controller action : ACTIONS) {
 			if(action.handles(context.requestUri())){
 				action.execute(context);
 			}
