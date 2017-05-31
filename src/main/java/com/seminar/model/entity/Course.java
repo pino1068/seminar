@@ -56,6 +56,7 @@ public class Course implements Entity {
 		 );
 	}
 
+	@SuppressWarnings("serial")
 	public static MultiValuedMap<String, Rule> rules(){
 		 return new ArrayListValuedHashMap<String, Rule>(){{
 			putAll(NAME, 			  asList(new NotEmpty(), new MaxLength(15)));

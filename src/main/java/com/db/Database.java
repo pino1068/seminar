@@ -1,15 +1,15 @@
-package com;
+package com.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-public class ConnectionHandler {
+public class Database {
 
 	private final Connection _connection;
 
-	public ConnectionHandler(DataSource ds) {
+	public Database(DataSource ds) {
 		try {
 			_connection = ds.getConnection();
 		} catch (SQLException e) {
@@ -21,7 +21,7 @@ public class ConnectionHandler {
 		_connection.setAutoCommit(b);
 	}
 
-	public Connection get() {
+	public Connection connect() {
 		return _connection;
 	}
 

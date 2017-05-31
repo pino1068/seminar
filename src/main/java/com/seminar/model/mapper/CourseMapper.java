@@ -33,7 +33,7 @@ public class CourseMapper {
 		}
 	}
 
-	public Iterable<Course> findAll() {
+	public Iterable<Course> all() {
 		try {
 			PreparedStatement preparedStatement = _connection.prepareStatement("select * from Course");
 			ResultSet rs = preparedStatement.executeQuery();

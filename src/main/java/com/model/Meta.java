@@ -1,4 +1,4 @@
-package com.seminar.model;
+package com.model;
 
 import static java.util.Arrays.asList;
 
@@ -26,6 +26,7 @@ public class Meta {
 		return signature;
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static boolean hasCollectionType(Field field) {
 		for (Class<?> klass : asList(Collection.class, MultiValuedMap.class)) {
 			if(klass.isAssignableFrom(field.getType())){

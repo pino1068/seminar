@@ -1,4 +1,4 @@
-package com;
+package com.http;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

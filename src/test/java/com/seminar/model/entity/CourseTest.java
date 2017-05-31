@@ -12,7 +12,7 @@ import org.apache.commons.collections4.MultiValuedMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.seminar.model.EntityModel;
+import com.model.EntityModel;
 
 public class CourseTest {
 

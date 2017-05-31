@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.junit.Test;
 
+import com.model.Meta;
 import com.seminar.model.entity.Entity;
 
 public class MetaTest {

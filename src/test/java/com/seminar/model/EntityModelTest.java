@@ -13,6 +13,7 @@ import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.junit.Test;
 
+import com.model.EntityModel;
 import com.seminar.model.rule.MaxLength;
 import com.seminar.model.rule.NotEmpty;
 import com.seminar.model.rule.Rule;

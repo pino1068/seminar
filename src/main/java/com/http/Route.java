@@ -1,4 +1,4 @@
-package com;
+package com.http;
 
 import org.apache.commons.lang3.StringUtils;
 
