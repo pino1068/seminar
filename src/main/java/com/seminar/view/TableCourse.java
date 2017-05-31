@@ -55,7 +55,8 @@ public class TableCourse implements Html{
 	
 	private Element row(Course course){
 		return tr(
-				th(attr("scope -> row"),a(attr(/*" onclick=\"return confirm('Are you sure?')\"",*/" href -> "+DeleteCourse.ROUTE.with(course.getId())), "delete")),
+//				th(attr("scope -> row"),a(attr(/*" onclick=\"return confirm('Are you sure?')\"",*/" href -> "+DeleteCourse.ROUTE.with(course.getId())), "delete")),
+				th(attr("scope -> row"),a(attr("href -> "+DeleteCourse.ROUTE.with(course.getId())), "delete")),
 				th(attr("scope -> row"),a(attr("href -> "+ShowCourse.ROUTE.with(course.getId())), course.getName())),
 				td(text(course.getLocation())),
 				td(text(course.getTotalSeats().toString())),

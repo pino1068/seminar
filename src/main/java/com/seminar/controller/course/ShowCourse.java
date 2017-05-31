@@ -7,6 +7,7 @@ import com.Route;
 import com.seminar.controller.Controller;
 import com.seminar.model.entity.Course;
 import com.seminar.model.mapper.CourseMapper;
+import com.seminar.view.CourseDetails;
 import com.seminar.view.Layout;
 import com.seminar.view.ResponseWrapper;
 import com.seminar.view.TableCourse;
@@ -26,7 +27,7 @@ public class ShowCourse implements Controller {
 		Course course = new CourseMapper(context.connection()).get(id);
 		
 		new ResponseWrapper(context.response()).render(
-				new Layout("courses", new TableCourse(asList(course)))
+				new Layout("courses", new CourseDetails(course))
 		);
 	}
 }

@@ -20,6 +20,8 @@ import static com.github.manliogit.javatags.lang.HtmlHelper.title;
 import static com.github.manliogit.javatags.lang.HtmlHelper.ul;
 
 import com.github.manliogit.javatags.element.Element;
+import com.seminar.controller.course.AllCourse;
+import com.seminar.controller.course.Create;
 
 public class Layout implements Html {
 
@@ -73,13 +75,13 @@ public class Layout implements Html {
 			              ),
 			              ul(attr("class -> dropdown-menu","aria-labelledby -> download"),
 			                li(
-			                  a(attr("href -> /"),
+			                  a(attr("href -> "+AllCourse.ROUTE),
 			                    text("settings")
 			                  )
 			                ),
 			                li(attr("class -> divider")),
 			                li(
-			                  a(attr("href -> /"),
+			                  a(attr("href -> "+AllCourse.ROUTE),
 			                    text("logout")
 			                  )
 			                )
@@ -102,10 +104,10 @@ public class Layout implements Html {
 			        div(attr("class -> row"),
 			          div(attr("class -> col-lg-2 col-md-2 col-sm-3"),
 			            div(attr("class -> list-group table-of-contents"),
-			              a(attr("class -> list-group-item","href -> /course"),
+			              a(attr("class -> list-group-item","href -> "+AllCourse.ROUTE),
 			                text("List")
 			              ),
-			              a(attr("class -> list-group-item","href -> /course/create"),
+			              a(attr("class -> list-group-item","href -> "+Create.ROUTE),
 			                text("Create")
 			              )
 			            )
