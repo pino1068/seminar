@@ -12,7 +12,7 @@
 
 	<servlet>
 		<servlet-name>Servlet</servlet-name>
-		<servlet-class>com.Servlet</servlet-class>
+		<servlet-class>com.seminar.Servlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Servlet</servlet-name>
