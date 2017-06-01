@@ -15,11 +15,12 @@ import com.seminar.view.course.CourseForm;
 import com.seminar.view.course.TableCourse;
 
 public class CourseController  {
-	public final static Route COURSE = 	new Route("/", "/course/.*");
-	public final static Route LIST = 	new Route("/", "/course/?");
-	public static final Route CREATE = 	new Route("/course/create/?");
-	public final static Route SHOW = 	new Route("/course/show/\\d+");
-	public final static Route DELETE = 	new Route("/course/delete/\\d+");
+	public final static Route
+			LIST 	= new Route("/", "/course/?"),
+			CREATE 	= new Route("/course/create/?"), 
+			SHOW 	= new Route("/course/show/\\d+"), 
+			DELETE 	= new Route("/course/delete/\\d+");
+	public final static Routes ROUTING = 	new Routes(LIST,CREATE, SHOW,DELETE);
 
 	private CourseMapper courses;
 	private Response resp;
@@ -31,7 +32,7 @@ public class CourseController  {
 		this.courses = new CourseMapper(conn);
 	}
 
-	public void routing() {
+	public void execute() {
 		if 		(req.routesTo(LIST)) 	list();
 		else if (req.routesTo(CREATE))	create();
 		else if (req.routesTo(SHOW)) 	show();

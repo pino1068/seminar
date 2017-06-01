@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.seminar.controller.Routes;
+
 public class Request {
 
 	private HttpServletRequest request;
@@ -39,6 +41,10 @@ public class Request {
 	
 	private boolean matches(String method){
 		return request.getMethod().equals(method);
+	}
+
+	public boolean routesTo(Routes routes) {
+		return routes.match(uri());
 	}
 
 	public boolean routesTo(Route route) {

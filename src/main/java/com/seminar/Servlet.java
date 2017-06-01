@@ -39,8 +39,8 @@ public class Servlet extends HttpServlet {
 		db = new Database(ds);
 		try {
 			db.setAutoCommit(false);
-			if(request.routesTo(CourseController.COURSE)){
-				new CourseController(db.connect(), request, response).routing();
+			if(request.routesTo(CourseController.ROUTING)){
+				new CourseController(db.connect(), request, response).execute();
 				db.commit();
 			}
 			else	
